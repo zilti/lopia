@@ -1,0 +1,11 @@
+{:send.host ""
+ :send.port 110
+ :send.user "blah"
+ :send.password "baz"
+ :send.from "bl@ub.com"
+ :receive.host ""
+ :receive.port ""
+ :receive.user "blah"
+ :receive.password "blub"
+ :receive.folder "inbox"
+ :receive.protocol "imap"}
