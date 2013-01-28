@@ -3414,9 +3414,10 @@ Startup
         clojure.pprint)
   (:require [korma.incubator.core :as k]))</pre></td></tr><tr><td class="docs"><p>A "pretty-spit" function combining clojure.core's spit with pprint.</p>
 
-<p>=Utility functions=
-Utility functions are globally used functions that complement clojure.core
-in the context of Lopia.</p>
+<h2>Utility functions</h2>
+
+<p>Utility functions are globally used functions that complement clojure.core
+in the context of Lopia.  </p>
 </td><td class="codes"><pre class="brush: clojure">(defn pspit
   [f content &amp; options]
   (with-open [#^java.io.Writer w (apply clojure.java.io/writer f options)]
@@ -3427,13 +3428,14 @@ The binding of <em>read-eval</em> to false prevents execution of code using the 
   (binding [*read-eval* false]
     (read-string string)))</pre></td></tr><tr><td class="docs"><p>This prefix is where all config files are stored.</p>
 
-<p>=Settings=
-Lopia settings are organized in a namespaced manner.
-each Lopia settings file contains exactly one clojure map. The usage of flatland's ordered map ensures that the order of the settings is kept, so it stays simple to edit them by hand.
-Each of those maps needs a :prefix entry whose value is a keyword denoting the namespace with which the contents can be accessed. Usually that namespace is identical to the one of the namespace using the settings file.
-All other entries have to follow the following pattern:
-{:keyword [value docstring default-value]}
-This ensures that we have self-documenting configuration files.</p>
+<h2>Settings</h2>
+
+<p>Lopia settings are organized in a namespaced manner. <br />
+each Lopia settings file contains exactly one clojure map. The usage of flatland's ordered map ensures that the order of the settings is kept, so it stays simple to edit them by hand. <br />
+Each of those maps needs a :prefix entry whose value is a keyword denoting the namespace with which the contents can be accessed. Usually that namespace is identical to the one of the namespace using the settings file. <br />
+All other entries have to follow the following pattern: <br />
+<code>{:keyword [value docstring default-value]}</code> <br />
+This ensures that we have self-documenting configuration files.  </p>
 
 <p>Origin stores the origin of the setting namespaces, so we still know where to store the different parts of the settings map.</p>
 
@@ -3460,17 +3462,18 @@ This ensures that we have self-documenting configuration files.</p>
   [keyw value]
   (let [[nspace keyw] (parse-keyword keyw)]
     (swap! settings #(update-in % [nspace keyw]
-                                (fn [old] `(~value ~(second old) ~(last old)))))))</pre></td></tr><tr><td class="docs"><p>The watcher watches for changes at the settings-atom.
-After every change, the respective config file immediately gets stored back to disk.</p>
+                                (fn [old] `(~value ~(second old) ~(last old)))))))</pre></td></tr><tr><td class="docs"><p>The watcher watches for changes at the settings-atom. <br />
+After every change, the respective config file immediately gets stored back to disk.  </p>
 </td><td class="codes"><pre class="brush: clojure">(add-watch settings :settings
            (fn [_ _ _ _]
              (for [entry @settings]
-               (pspit (str prefix ((key entry) @origin)) (val entry)))))</pre></td></tr><tr><td class="docs"><p>If you want to query the lucene database, this function comes in handy. It takes a normal lucene-conform search string, an offset and a maximum number of elements.
-<em>Notice that the field names all have to be written uppercase.</em>
+               (pspit (str prefix ((key entry) @origin)) (val entry)))))</pre></td></tr><tr><td class="docs"><p>If you want to query the lucene database, this function comes in handy. It takes a normal lucene-conform search string, an offset and a maximum number of elements. <br />
+<strong>Notice that the field names all have to be written uppercase.</strong> <br />
 This function will then return a list of vectors, where the first element is the id and the second the table name.</p>
 
-<p>=Database utilities=
-Currently only one function. This will probably get merged with lopia.database in the future.</p>
+<h2>Database utilities</h2>
+
+<p>Currently only one function. This will probably get merged with lopia.database in the future.  </p>
 </td><td class="codes"><pre class="brush: clojure">(defn lucene-search 
   [search-str offset max]
   (let [res (k/exec-raw (str &quot;SELECT * FROM FTL_SEARCH_DATA('&quot; search-str &quot;','&quot; offset &quot;','&quot; max &quot;')&quot;) :results)]
