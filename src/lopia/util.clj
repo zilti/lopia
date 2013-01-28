@@ -2,6 +2,9 @@
   (:use flatland.ordered.map
         clojure.pprint)
   (:require [korma.incubator.core :as k]
+            [clj-ldap.client :as ldap]
+            [clj-time.core :as joda]
+            [clj-time.coerce :as jodac]
             [cemerick.friend.credentials :as creds]))
 
 ;;*********************************************
@@ -68,7 +71,50 @@
 ;; LDAP authorization
 ;;*********************************************
 ;; use creds to hash and check password hashes
-(defn workflow-ldap [{:keys [username password token] :as request}]
-  (if (nil? token)
-    ))
-(defn auth-ldap [reqmap])
+(def sessions (atom {}))
+(def ldap-conn (ldap/connect (get :core/ldap-connection)))
+
+(defn get-user-data [sAMAccountName]
+  (first
+   (ldap/search ldap-conn (get :core/ldap-base)
+                {:filter (str "(sAMAccountName=" sAMAccountName ")")})))
+
+(defn get-groups [sAMAccountName]
+  (->> (get-user-data sAMAccountName)
+     :memberOf
+     (map #(-> (split % #"\,")
+              first
+              (split #"=")
+              second
+              keyword))))
+
+(defn workflow-ldap "Used by the friend authentication framework.
+First checks if there's a valid token.
+Otherwise, it tries to log in to ldap using the auth-ldap function.
+If all fails, it returns nil."
+  [{:keys [username password token] :as request}]
+  (if-let [userdata (@sessions token)]
+    (if (joda/after? (joda/now) (:timeout userdata))
+      nil
+      {:identity token})
+    (if (and (not (nil? username)) (not (nil? password)))
+      (auth-ldap request)
+      nil)))
+
+(defn auth-ldap "Used by the friend authentication framework.
+Tries to log in to ldap using the given credentials in the request map."
+  [{:keys [username password]}]
+  (if (ldap/bind? ldap-conn
+                  (-> (get-user-data username) first :dn)
+                  password)
+    (let [pwhash (creds/hash-bcrypt password)
+          timeout (get :core/session-timeout)]
+      (swap! sessions
+             #(assoc % pwhash
+                {:username username
+                 :timeout (if (nil? timeout)
+                            nil
+                            (joda/plus (joda/now) (joda/secs timeout)))}))
+      {:identity pwhash})
+    nil))
+;; TODO Authorization
