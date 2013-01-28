@@ -3102,14 +3102,36 @@ With this architecture, it is dead-simple to add new types of blocks.</p>
 </td><td class="codes"><pre class="brush: clojure">(ns lopia.database
   (:use korma.incubator.core
         korma.db)
-  (:require [lopia.util :as u]))</pre></td></tr><tr><td class="docs"><p>The block is the central element of the system.
-It contains the elements used in all subtypes and keeps the block together with the logs, tags and attachments.</p>
-</td><td class="codes"><pre class="brush: clojure">(declare block log tag tag_group block_tag)
-(defentity  block
-  (has-many log))
-(defentity log
-  (belongs-to block))
-(defentity tag
+  (:require [lopia.util :as u]))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(declare block log tag tag_group block_tag)</pre></td></tr><tr><td class="docs"><p>The block is the central element of the system.
+It contains the elements used in all subtypes and keeps the block together with the logs, tags and attachments.
+Fields:
+* <strong>id</strong> int auto_increment primary key,
+* <strong>title</strong> varchar,
+* <strong>opener</strong> varchar  ldap-sAMAccountName,
+* <strong>opener<em>next</em>remind</strong> timestamp,
+* <strong>opener<em>gen</em>remind</strong> varchar serialized-clojure,
+* <strong>supporter</strong> varchar ldap-sAMAccountName,
+* <strong>supporter<em>next</em>remind</strong> timestamp,
+* <strong>supporter<em>gen</em>remind</strong> varchar serialized-clojure,
+* <strong>opened</strong> timestamp,
+* <strong>closed</strong> timestamp,
+* <strong>due</strong> timestamp
+* <strong>block_type</strong> varchar,
+* <strong>target</strong> int,
+* <strong>followup</strong> int
+<em>target</em> specifies the id of the entry of the table specified at <em>block_type</em>, while with <em>followup</em>, a followup block can be specified.</p>
+</td><td class="codes"><pre class="brush: clojure">(defentity  block
+(has-many log))</pre></td></tr><tr><td class="docs"><p>The log table contains all log entries added to a block and ensures that they are in a consistent state and full-text-indexed.
+Fields:
+* <strong>id</strong> int auto_increment primary key,
+* <strong>block_id</strong> int references-block,
+* <strong>log_type</strong> varchar,
+* <strong>title</strong> varchar,
+* <strong>text</strong> clob</p>
+</td><td class="codes"><pre class="brush: clojure">(defentity  log
+(belongs-to block))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defentity tag
   (belongs-to tag_group))
 (defentity tag_group
   (has-many tag))
@@ -3149,7 +3171,7 @@ Action functions
   [block-id {:keys [mime filename data] :as v}]
   (when (entry-exists? block :id block-id)
     (-&gt; (insert attachment
-                (values (apply-meta :on-attachment-add
+               (values (apply-meta :on-attachment-add
                                     (block-type block-id)
                                     v))) first val)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn drop-attachment
