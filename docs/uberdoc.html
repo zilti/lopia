@@ -3096,13 +3096,16 @@ Tries to log in to ldap using the given credentials in the request map.</p>
                 :delimiters 
                 :naming {:keys string/lower-case
                          :fields string/lower-case}})</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lopia.cross.cross" name="lopia.cross.cross"><h1 class="project-name">lopia.cross.cross</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns lopia.cross.cross)</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lopia.database" name="lopia.database"><h1 class="project-name">lopia.database</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>Lopia uses the <a href="http://www.h2database.org">h2 Database</a></p>
+</td><td class="codes"><pre class="brush: clojure">(ns lopia.cross.cross)</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lopia.database" name="lopia.database"><h1 class="project-name">lopia.database</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>Lopia uses the <a href="http://www.h2database.org">h2 Database</a> to manage all its data.
+The database is organized in a modular, easy-to-expand way. The central building block for all entries is the table named... block. <br />
+With this architecture, it is dead-simple to add new types of blocks.</p>
 </td><td class="codes"><pre class="brush: clojure">(ns lopia.database
   (:use korma.incubator.core
         korma.db)
-  (:require [lopia.util :as u]))</pre></td></tr><tr><td class="docs">
+  (:require [lopia.util :as u]))</pre></td></tr><tr><td class="docs"><p>The block is the central element of the system.
+It contains the elements used in all subtypes and keeps the block together with the logs, tags and attachments.</p>
 </td><td class="codes"><pre class="brush: clojure">(declare block log tag tag_group block_tag)
-(defentity block
+(defentity  block
   (has-many log))
 (defentity log
   (belongs-to block))
@@ -3410,7 +3413,7 @@ Startup
       (filter (set tables) combined-res)
       combined-res)))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lopia.util" name="lopia.util"><h1 class="project-name">lopia.util</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>Lopia.Util contains utility functions which aren't related enough to other functions to get their own namespace.</p>
 </td><td class="codes"><pre class="brush: clojure">(ns lopia.util 
-  (:use flatland.ordered.map
+    (:use flatland.ordered.map
         clojure.pprint)
   (:require [korma.incubator.core :as k]))</pre></td></tr><tr><td class="docs"><p>A "pretty-spit" function combining clojure.core's spit with pprint.</p>
 
