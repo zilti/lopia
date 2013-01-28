@@ -3029,7 +3029,7 @@ net.brehaut.ClojureTools = (function (SH) {
   };
 })(SyntaxHighlighter);
 </script><title>lopia -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name">lopia</h1><h2 class="project-version">0.1.0-SNAPSHOT</h2><br /><p>FIXME: write description</p>
-</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.5.0-RC3</td></tr><tr><td class="dep-name">javax.mail/mail</td><td class="dotted"><hr /></td><td class="dep-version">1.4.5</td></tr><tr><td class="dep-name">org.clojars.pntblnk/clj-ldap</td><td class="dotted"><hr /></td><td class="dep-version">0.0.9</td></tr><tr><td class="dep-name">com.cemerick/friend</td><td class="dotted"><hr /></td><td class="dep-version">0.1.3</td></tr><tr><td class="dep-name">clj-time</td><td class="dotted"><hr /></td><td class="dep-version">0.4.4</td></tr><tr><td class="dep-name">org.apache.lucene/lucene-core</td><td class="dotted"><hr /></td><td class="dep-version">3.6.2</td></tr><tr><td class="dep-name">com.h2database/h2</td><td class="dotted"><hr /></td><td class="dep-version">1.3.170</td></tr><tr><td class="dep-name">org.clojars.harob/korma.incubator</td><td class="dotted"><hr /></td><td class="dep-version">0.1.1-SNAPSHOT</td></tr><tr><td class="dep-name">com.cemerick/pomegranate</td><td class="dotted"><hr /></td><td class="dep-version">0.0.13</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#lopia.auth">lopia.auth</a></li><li><a href="#lopia.core">lopia.core</a></li><li><a href="#lopia.cross.cross">lopia.cross.cross</a></li><li><a href="#lopia.database">lopia.database</a></li><li><a href="#lopia.formparser">lopia.formparser</a></li><li><a href="#lopia.forms.ticket">lopia.forms.ticket</a></li><li><a href="#lopia.mail">lopia.mail</a></li><li><a href="#lopia.rest">lopia.rest</a></li><li><a href="#lopia.search">lopia.search</a></li><li><a href="#lopia.util">lopia.util</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lopia.auth" name="lopia.auth"><h1 class="project-name">lopia.auth</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>The authentication functions of Lopia use the "Friend" Framework from cemerick (http://www.github.com/cemerick/friend) to ensure only LDAP-authorized users can access and, by group, modify the database data via the REST-API. </p>
+</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.5.0-RC3</td></tr><tr><td class="dep-name">javax.mail/mail</td><td class="dotted"><hr /></td><td class="dep-version">1.4.5</td></tr><tr><td class="dep-name">org.clojars.pntblnk/clj-ldap</td><td class="dotted"><hr /></td><td class="dep-version">0.0.9</td></tr><tr><td class="dep-name">com.cemerick/friend</td><td class="dotted"><hr /></td><td class="dep-version">0.1.3</td></tr><tr><td class="dep-name">clj-time</td><td class="dotted"><hr /></td><td class="dep-version">0.4.4</td></tr><tr><td class="dep-name">org.apache.lucene/lucene-core</td><td class="dotted"><hr /></td><td class="dep-version">3.6.2</td></tr><tr><td class="dep-name">com.h2database/h2</td><td class="dotted"><hr /></td><td class="dep-version">1.3.170</td></tr><tr><td class="dep-name">org.clojars.harob/korma.incubator</td><td class="dotted"><hr /></td><td class="dep-version">0.1.1-SNAPSHOT</td></tr><tr><td class="dep-name">com.cemerick/pomegranate</td><td class="dotted"><hr /></td><td class="dep-version">0.0.13</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#lopia.auth">lopia.auth</a></li><li><a href="#lopia.core">lopia.core</a></li><li><a href="#lopia.cross.cross">lopia.cross.cross</a></li><li><a href="#lopia.database">lopia.database</a></li><li><a href="#lopia.formparser">lopia.formparser</a></li><li><a href="#lopia.forms.ticket">lopia.forms.ticket</a></li><li><a href="#lopia.mail">lopia.mail</a></li><li><a href="#lopia.rest">lopia.rest</a></li><li><a href="#lopia.search">lopia.search</a></li><li><a href="#lopia.util">lopia.util</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lopia.auth" name="lopia.auth"><h1 class="project-name">lopia.auth</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>The authentication functions of Lopia use the <em>"Friend"</em> Framework from cemerick (http://www.github.com/cemerick/friend) to ensure only LDAP-authorized users can access and, by group, modify the database data via the REST-API. </p>
 </td><td class="codes"><pre class="brush: clojure">(ns lopia.auth 
   (:require [clojure.string :as string]
             [lopia.util :as u]
@@ -3412,46 +3412,66 @@ Startup
 </td><td class="codes"><pre class="brush: clojure">(ns lopia.util 
   (:use flatland.ordered.map
         clojure.pprint)
-  (:require [korma.incubator.core :as k]))</pre></td></tr><tr><td class="docs"><p>Pretty-spit.</p>
-</td><td class="codes"><pre class="brush: clojure">(comment &quot;=Utility functions=&quot;)
-(defn pspit
-  {:added &quot;1.2&quot;}
+  (:require [korma.incubator.core :as k]))</pre></td></tr><tr><td class="docs"><p>A "pretty-spit" function combining clojure.core's spit with pprint.</p>
+
+<p>=Utility functions=
+Utility functions are globally used functions that complement clojure.core
+in the context of Lopia.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn pspit
   [f content &amp; options]
   (with-open [#^java.io.Writer w (apply clojure.java.io/writer f options)]
-    (pprint content w)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn safe-read [string]
+    (pprint content w)))</pre></td></tr><tr><td class="docs"><p>Used to read input from unsafe sources like the browser.
+The binding of <em>read-eval</em> to false prevents execution of code using the #= reader literal.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn safe-read 
+  [string]
   (binding [*read-eval* false]
-    (read-string string)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(comment &quot;=Settings=&quot;)
-(def prefix &quot;resources/conf/&quot;)
-(def origin (atom {}))
-(def settings (atom {}))</pre></td></tr><tr><td class="docs"><p>Parses a keyword and splits it into the namespace and keyword parts.</p>
+    (read-string string)))</pre></td></tr><tr><td class="docs"><p>This prefix is where all config files are stored.</p>
+
+<p>=Settings=
+Lopia settings are organized in a namespaced manner.
+each Lopia settings file contains exactly one clojure map. The usage of flatland's ordered map ensures that the order of the settings is kept, so it stays simple to edit them by hand.
+Each of those maps needs a :prefix entry whose value is a keyword denoting the namespace with which the contents can be accessed. Usually that namespace is identical to the one of the namespace using the settings file.
+All other entries have to follow the following pattern:
+{:keyword [value docstring default-value]}
+This ensures that we have self-documenting configuration files.</p>
+
+<p>Origin stores the origin of the setting namespaces, so we still know where to store the different parts of the settings map.</p>
+
+<p>This is the main collection for all settings.</p>
+</td><td class="codes"><pre class="brush: clojure">(def prefix  &quot;resources/conf/&quot;)
+(def origin  (atom {}))
+(def settings  (atom {}))</pre></td></tr><tr><td class="docs"><p>Parses a keyword and splits it into the namespace and keyword parts.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn parse-keyword
   [keyw]
   (let [[k1 k2] (string/split (subs (str keyw) 1) #&quot;\/&quot; 2)]
-    [(keyword k1) (keyword k2)]))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn load-file!
+    [(keyword k1) (keyword k2)]))</pre></td></tr><tr><td class="docs"><p>Loads a configuration file and loads it into the settings-atom.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn load-file! 
   [filename]
   (let [f (-&gt;&gt; (str prefix filename) slurp read-string)
         prefix (:prefix f)
         store (-&gt;&gt; f (into (ordered-map)))]
     (swap! settings #(assoc % prefix store))
-    (swap! origin #(assoc % prefix filename))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn get
+    (swap! origin #(assoc % prefix filename))))</pre></td></tr><tr><td class="docs"><p>Returns the value part of an entry.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn get 
   [keyw]
   (let [[nspace keyw] (parse-keyword keyw)]
-    (-&gt; (get-in @settings [nspace keyw]) first)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn put!
+    (-&gt; (get-in @settings [nspace keyw]) first)))</pre></td></tr><tr><td class="docs"><p>Overwrites a setting with a new value.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn put! 
   [keyw value]
   (let [[nspace keyw] (parse-keyword keyw)]
     (swap! settings #(update-in % [nspace keyw]
-                                (fn [old] `(~(first old) ~(second old) ~(last old)))))))</pre></td></tr><tr><td class="docs">
+                                (fn [old] `(~value ~(second old) ~(last old)))))))</pre></td></tr><tr><td class="docs"><p>The watcher watches for changes at the settings-atom.
+After every change, the respective config file immediately gets stored back to disk.</p>
 </td><td class="codes"><pre class="brush: clojure">(add-watch settings :settings
            (fn [_ _ _ _]
              (for [entry @settings]
-               (pspit (str prefix ((key entry) @origin)) (val entry)))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(comment &quot;=Database utilities=&quot;)
-(defn lucene-search
+               (pspit (str prefix ((key entry) @origin)) (val entry)))))</pre></td></tr><tr><td class="docs"><p>If you want to query the lucene database, this function comes in handy. It takes a normal lucene-conform search string, an offset and a maximum number of elements.
+<em>Notice that the field names all have to be written uppercase.</em>
+This function will then return a list of vectors, where the first element is the id and the second the table name.</p>
+
+<p>=Database utilities=
+Currently only one function. This will probably get merged with lopia.database in the future.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn lucene-search 
   [search-str offset max]
   (let [res (k/exec-raw (str &quot;SELECT * FROM FTL_SEARCH_DATA('&quot; search-str &quot;','&quot; offset &quot;','&quot; max &quot;')&quot;) :results)]
     (reduce (fn [vec rec]
