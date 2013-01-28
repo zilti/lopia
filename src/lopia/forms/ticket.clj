@@ -8,4 +8,5 @@
 (defroutes ticket
   (GET "/crate" []
        )
-  (GET "/:id" [id :as r]))
+  (GET "/:id" [id :as r]
+       ))

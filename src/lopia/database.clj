@@ -27,6 +27,11 @@
              (fields :block_type
                      (where {:id block-id})))
      first :block_type))
+
+(defn block-type-exists?
+  [type-name]
+  (= 1 (count (filter #(= % type-name) (->> (u/get ::block-types) (map :table))))))
+
 ;;*********************************************
 ;; Meta workers
 ;;*********************************************
@@ -42,13 +47,29 @@
 ;;*********************************************
 ;; Action functions
 ;;*********************************************
-
 (defn add-log-entry
   [block-id {:keys [log_type title text] :as log-entry}]
   (let [block-type (block-type block-id)]
     (-> (insert log
                (values (merge {:id block-id}
                               (apply-meta :on-log-change block-type log-entry)))) first val)))
+
+(defn add-attachment
+  [block-id {:keys [mime filename data] :as v}]
+  (when (entry-exists? block :id block-id)
+    (-> (insert attachment
+                (values (apply-meta :on-attachment-add
+                                    (block-type block-id)
+                                    v))) first val)))
+
+(defn drop-attachment
+  [attachment-id]
+  (delete attachment
+          (where (= :id attachment-id))))
+
+;;*********************************************
+;; Tags
+;;*********************************************
 
 (defn create-tag-group
   [{:keys [title description] :as tag-group}]
@@ -125,18 +146,25 @@
           (where {:tag_id tag-id
                   :block_id block-id})))
 
-(defn add-attachment
-  [block-id {:keys [mime filename data] :as v}]
-  (when (entry-exists? block :id block-id)
-    (-> (insert attachment
-               (values (apply-meta :on-attachment-add
-                                   (block-type block-id)
-                                   v))) first val)))
+;;*********************************************
+;; Blocks
+;;*********************************************
+(defn create-block
+  [block-type block-data type-data]
+  )
 
-(defn drop-attachment
-  [attachment-id]
-  (delete attachment
-          (where (= :id attachment-id))))
+(defn update-block
+  [id block-data])
+
+(defn close-block
+  [id])
+
+(defn delete-block
+  [id])
+
+;;*********************************************
+;; Startup
+;;*********************************************
 
 (defn boot []
   (u/load-file! "database.clj"))

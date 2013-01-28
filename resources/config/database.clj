@@ -2,6 +2,7 @@
  :namespaces []
  :block-types [{:table "ticket"
                 :meta {:on-create nil
+                       :on-update nil
                        :on-log-change nil
                        :on-supporter-change nil
                        :on-tag-add nil
