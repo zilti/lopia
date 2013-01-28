@@ -3,5 +3,5 @@
                    :host ""
                    :ssl? false}
  :ldap-base ""
- :global-admin-groups [""]
+ :global-admin-groups [:administrator]
  :session-timeout nil}

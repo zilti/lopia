@@ -1,10 +1,10 @@
 create table block (
 id int auto_increment primary key,
 title varchar,
-opener_id int,
+opener varchar,
 opener_next_remind timestamp,
 opener_gen_remind varchar,
-supporter_id int,
+supporter varchar,
 supporter_next_remind timestamp,
 supporter_gen_remind varchar,
 opened timestamp,

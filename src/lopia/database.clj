@@ -1,13 +1,42 @@
 (ns lopia.database
+  "Lopia uses the [h2 Database](http://www.h2database.org) to manage all its data.
+The database is organized in a modular, easy-to-expand way. The central building block for all entries is the table named... block.  
+With this architecture, it is dead-simple to add new types of blocks."
   (:use korma.incubator.core
         korma.db)
   (:require [lopia.util :as u]))
 
 (declare block log tag tag_group block_tag)
-(defentity block
-  (has-many log))
-(defentity log
-  (belongs-to block))
+
+(defentity ^{:doc "The block is the central element of the system.
+It contains the elements used in all subtypes and keeps the block together with the logs, tags and attachments.  
+Fields:  
+* **id** int auto_increment primary key,  
+* **title** varchar,  
+* **opener** varchar  ldap-sAMAccountName,  
+* **opener_next_remind** timestamp,  
+* **opener_gen_remind** varchar serialized-clojure,  
+* **supporter** varchar ldap-sAMAccountName,  
+* **supporter_next_remind** timestamp,  
+* **supporter_gen_remind** varchar serialized-clojure,  
+* **opened** timestamp,  
+* **closed** timestamp,  
+* **due** timestamp,  
+* **block_type** varchar,  
+* **target** int,  
+* **followup** int  
+*target* specifies the id of the entry of the table specified at *block_type*, while with *followup*, a followup block can be specified."} block
+(has-many log))
+
+(defentity ^{:doc "The log table contains all log entries added to a block and ensures that they are in a consistent state and full-text-indexed.  
+Fields:  
+* **id** int auto_increment primary key,  
+* **block_id** int references-block,  
+* **log_type** varchar,  
+* **title** varchar,  
+* **text** clob"} log
+(belongs-to block))
+
 (defentity tag
   (belongs-to tag_group))
 (defentity tag_group
@@ -58,7 +87,7 @@
   [block-id {:keys [mime filename data] :as v}]
   (when (entry-exists? block :id block-id)
     (-> (insert attachment
-                (values (apply-meta :on-attachment-add
+               (values (apply-meta :on-attachment-add
                                     (block-type block-id)
                                     v))) first val)))
 

@@ -76,7 +76,7 @@
        :contents (reduce
                   (fn[coll part]
                     (conj coll (read-multipart-content part)))
-                  [] ((.getContent message)/parts))})))
+                  [] ((.getContent message) parts))})))
 
 (defn delete-mail [msg]
   (.setFlag msg javax.mail.Flags.Flag/DELETED, true))
