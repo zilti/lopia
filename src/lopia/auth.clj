@@ -1,4 +1,4 @@
-(ns lopia.auth "The authentication functions of Lopia use the *\"Friend\"* Framework from cemerick (http://www.github.com/cemerick/friend) to ensure only LDAP-authorized users can access and, by group, modify the database data via the REST-API."
+(ns lopia.auth "The authentication functions of Lopia use the [*\"Friend\"*](http://www.github.com/cemerick/friend) Framework from cemerick to ensure only LDAP-authorized users can access and, by group, modify the database data via the REST-API."
   (:require [clojure.string :as string]
             [lopia.util :as u]
             [clj-ldap.client :as ldap]
@@ -15,7 +15,7 @@
    (ldap/search ldap-conn (u/get ::ldap-base)
                 {:filter (str "(sAMAccountName=" sAMAccountName ")")})))
 
-(defn get-groups "A function returning a list of all groups of the given user associated to the short-name."
+(defn get-groups "A function returning a list of all groups of the given user associated to the short-name. To ensure compatibility with clojure keywords, **note that each space in a group name gets replaced by an underscore!**"
   [sAMAccountName]
   (->> (get-user-data sAMAccountName)
      :memberOf
