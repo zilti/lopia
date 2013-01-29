@@ -3029,7 +3029,7 @@ net.brehaut.ClojureTools = (function (SH) {
   };
 })(SyntaxHighlighter);
 </script><title>lopia -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name">lopia</h1><h2 class="project-version">0.1.0-SNAPSHOT</h2><br /><p>FIXME: write description</p>
-</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.5.0-RC3</td></tr><tr><td class="dep-name">javax.mail/mail</td><td class="dotted"><hr /></td><td class="dep-version">1.4.5</td></tr><tr><td class="dep-name">org.clojars.pntblnk/clj-ldap</td><td class="dotted"><hr /></td><td class="dep-version">0.0.9</td></tr><tr><td class="dep-name">com.cemerick/friend</td><td class="dotted"><hr /></td><td class="dep-version">0.1.3</td></tr><tr><td class="dep-name">clj-time</td><td class="dotted"><hr /></td><td class="dep-version">0.4.4</td></tr><tr><td class="dep-name">org.apache.lucene/lucene-core</td><td class="dotted"><hr /></td><td class="dep-version">3.6.2</td></tr><tr><td class="dep-name">com.h2database/h2</td><td class="dotted"><hr /></td><td class="dep-version">1.3.170</td></tr><tr><td class="dep-name">org.clojars.harob/korma.incubator</td><td class="dotted"><hr /></td><td class="dep-version">0.1.1-SNAPSHOT</td></tr><tr><td class="dep-name">com.cemerick/pomegranate</td><td class="dotted"><hr /></td><td class="dep-version">0.0.13</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#lopia.auth">lopia.auth</a></li><li><a href="#lopia.core">lopia.core</a></li><li><a href="#lopia.cross.cross">lopia.cross.cross</a></li><li><a href="#lopia.database">lopia.database</a></li><li><a href="#lopia.formparser">lopia.formparser</a></li><li><a href="#lopia.forms.ticket">lopia.forms.ticket</a></li><li><a href="#lopia.mail">lopia.mail</a></li><li><a href="#lopia.rest">lopia.rest</a></li><li><a href="#lopia.search">lopia.search</a></li><li><a href="#lopia.util">lopia.util</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lopia.auth" name="lopia.auth"><h1 class="project-name">lopia.auth</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>The authentication functions of Lopia use the <em>"Friend"</em> Framework from cemerick (http://www.github.com/cemerick/friend) to ensure only LDAP-authorized users can access and, by group, modify the database data via the REST-API. </p>
+</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.5.0-RC3</td></tr><tr><td class="dep-name">javax.mail/mail</td><td class="dotted"><hr /></td><td class="dep-version">1.4.5</td></tr><tr><td class="dep-name">org.clojars.pntblnk/clj-ldap</td><td class="dotted"><hr /></td><td class="dep-version">0.0.9</td></tr><tr><td class="dep-name">com.cemerick/friend</td><td class="dotted"><hr /></td><td class="dep-version">0.1.3</td></tr><tr><td class="dep-name">clj-time</td><td class="dotted"><hr /></td><td class="dep-version">0.4.4</td></tr><tr><td class="dep-name">org.apache.lucene/lucene-core</td><td class="dotted"><hr /></td><td class="dep-version">3.6.2</td></tr><tr><td class="dep-name">com.h2database/h2</td><td class="dotted"><hr /></td><td class="dep-version">1.3.170</td></tr><tr><td class="dep-name">org.clojars.harob/korma.incubator</td><td class="dotted"><hr /></td><td class="dep-version">0.1.1-SNAPSHOT</td></tr><tr><td class="dep-name">com.cemerick/pomegranate</td><td class="dotted"><hr /></td><td class="dep-version">0.0.13</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#lopia.auth">lopia.auth</a></li><li><a href="#lopia.core">lopia.core</a></li><li><a href="#lopia.cross.cross">lopia.cross.cross</a></li><li><a href="#lopia.database">lopia.database</a></li><li><a href="#lopia.formparser">lopia.formparser</a></li><li><a href="#lopia.forms.ticket">lopia.forms.ticket</a></li><li><a href="#lopia.mail">lopia.mail</a></li><li><a href="#lopia.rest">lopia.rest</a></li><li><a href="#lopia.search">lopia.search</a></li><li><a href="#lopia.util">lopia.util</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lopia.auth" name="lopia.auth"><h1 class="project-name">lopia.auth</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs"><p>The authentication functions of Lopia use the <em>"Friend"</em> Framework from cemerick (http://www.github.com/cemerick/friend) to ensure only LDAP-authorized users can access and, by group, modify the database data via the REST-API.</p>
 </td><td class="codes"><pre class="brush: clojure">(ns lopia.auth 
   (:require [clojure.string :as string]
             [lopia.util :as u]
@@ -3106,119 +3106,179 @@ With this architecture, it is dead-simple to add new types of blocks.</p>
 </td><td class="codes"><pre class="brush: clojure">(declare block log tag tag_group block_tag)</pre></td></tr><tr><td class="docs"><p>The block is the central element of the system.
 It contains the elements used in all subtypes and keeps the block together with the logs, tags and attachments. <br />
 Fields: <br />
-* <strong>id</strong> int auto_increment primary key, <br />
-* <strong>title</strong> varchar, <br />
-* <strong>opener</strong> varchar  ldap-sAMAccountName, <br />
-* <strong>opener<em>next</em>remind</strong> timestamp, <br />
-* <strong>opener<em>gen</em>remind</strong> varchar serialized-clojure, <br />
-* <strong>supporter</strong> varchar ldap-sAMAccountName, <br />
-* <strong>supporter<em>next</em>remind</strong> timestamp, <br />
-* <strong>supporter<em>gen</em>remind</strong> varchar serialized-clojure, <br />
-* <strong>opened</strong> timestamp, <br />
-* <strong>closed</strong> timestamp, <br />
-* <strong>due</strong> timestamp, <br />
-* <strong>block_type</strong> varchar, <br />
-* <strong>target</strong> int, <br />
-* <strong>followup</strong> int <br />
+- <strong>id</strong> int auto_increment primary key, <br />
+- <strong>title</strong> varchar, <br />
+- <strong>opener</strong> varchar  ldap-sAMAccountName, <br />
+- <strong>opener&#95;next&#95;remind</strong> timestamp, <br />
+- <strong>opener&#95;gen&#95;remind</strong> varchar serialized-clojure, <br />
+- <strong>supporter</strong> varchar ldap-sAMAccountName, <br />
+- <strong>supporter&#95;next&#95;remind</strong> timestamp, <br />
+- <strong>supporter&#95;gen&#95;remind</strong> varchar serialized-clojure, <br />
+- <strong>opened</strong> timestamp, <br />
+- <strong>closed</strong> timestamp, <br />
+- <strong>due</strong> timestamp, <br />
+- <strong>block_type</strong> varchar, <br />
+- <strong>target</strong> int, <br />
+- <strong>followup</strong> int <br />
 <em>target</em> specifies the id of the entry of the table specified at <em>block_type</em>, while with <em>followup</em>, a followup block can be specified.</p>
 </td><td class="codes"><pre class="brush: clojure">(defentity  block
-(has-many log))</pre></td></tr><tr><td class="docs"><p>The log table contains all log entries added to a block and ensures that they are in a consistent state and full-text-indexed. <br />
+  (has-many log)
+  (has-many attachment)
+  (many-to-many tag :block_tag
+                {:lfk :block_id
+                 :rfk :tag_id}))</pre></td></tr><tr><td class="docs"><p>The <strong>log</strong> table contains all log entries added to a block and ensures that they are in a consistent state and full-text-indexed. <br />
 Fields: <br />
-* <strong>id</strong> int auto_increment primary key, <br />
-* <strong>block_id</strong> int references-block, <br />
-* <strong>log_type</strong> varchar, <br />
-* <strong>title</strong> varchar, <br />
-* <strong>text</strong> clob</p>
+- <strong>id</strong> int auto_increment primary key, <br />
+- <strong>block_id</strong> int references-block, <br />
+- <strong>log_type</strong> varchar, <br />
+- <strong>log_title</strong> varchar, <br />
+- <strong>log_text</strong> clob</p>
 </td><td class="codes"><pre class="brush: clojure">(defentity  log
-(belongs-to block))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defentity tag
-  (belongs-to tag_group))
-(defentity tag_group
-  (has-many tag))
-(defentity attachment)</pre></td></tr><tr><td class="docs"><p><hr />
-Helpers
-<hr /></p>
-</td><td class="codes"><pre class="brush: clojure">(defn entry-exists?
-  [e k v]
-  (not (nil? (select e (where {k v})))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn block-type
+(belongs-to block))</pre></td></tr><tr><td class="docs"><p>The <strong>tag_group</strong> table allows us to create groups of tags. This is interesting for different purposes. <br />
+While it's still not possible to have multiple tags with the same name, you can fetch tags based on a group and use that
+in your programming logic. <br />
+Fields: <br />
+- <strong>id</strong> int auto_increment primary key, <br />
+- <strong>title</strong> varchar, <br />
+- <strong>description</strong> varchar</p>
+</td><td class="codes"><pre class="brush: clojure">(defentity  tag_group
+  (has-many tag))</pre></td></tr><tr><td class="docs"><p>Usually, <strong>tag</strong>s only allow you to, well, <em>tag</em> something. But the tags in the tag table can do more! <br />
+Tags can be of different types and, in some circumstances, hold values. <br />
+Fields: <br />
+- <strong>id</strong> int auto_increment primary key, <br />
+- <strong>tag&#95;group&#95;id</strong> int references-tag_group,
+- <strong>tag_title</strong> varchar, <br />
+- <strong>tag_description</strong> varchar, <br />
+- <strong>tag_type</strong> varchar, <br />
+- <strong>allowed_values</strong> varchar, <br />
+- <strong>meta</strong> clob serialized-clojure</p>
+</td><td class="codes"><pre class="brush: clojure">(defentity  tag
+  (belongs-to tag_group)
+  (many-to-many block :block_tag
+                {:lfk :tag_id
+                 :rfk :block_id}))</pre></td></tr><tr><td class="docs"><p>The <strong>block_tag</strong> table connects tags to blocks as the name says. <br />
+If it's a tag with a value, the value also is stored inside this table. <br />
+Fields: <br />
+- <strong>block_id</strong> int references-block, <br />
+- <strong>tag_id</strong> int references-tag, <br />
+- <strong>tag_value</strong> varchar</p>
+</td><td class="codes"><pre class="brush: clojure">(defentity  block_tag)</pre></td></tr><tr><td class="docs"><p>Finally, in the table <strong>attachment</strong> you can store attachments assigned to a block. <br />
+Fields: <br />
+- <strong>id</strong> int auto_increment primary key, <br />
+- <strong>block_id</strong> int references-block, <br />
+- <strong>mime</strong> varchar, <br />
+- <strong>filename</strong> varchar, <br />
+- <strong>content</strong> blob</p>
+</td><td class="codes"><pre class="brush: clojure">(defentity  attachment
+  (belongs-to block))</pre></td></tr><tr><td class="docs"><p>Checks if a row in an entity, where key = value, exists.</p>
+
+<h2>Helper functions</h2>
+</td><td class="codes"><pre class="brush: clojure">(defn entry-exists? 
+  [entity key value]
+  (not (nil? (select entity (where {key value})))))</pre></td></tr><tr><td class="docs"><p>Returns the type of a block.
+The type name of a block is always identical of the form table it references.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn block-type 
   [block-id]
   (-&gt; (select block
              (fields :block_type
                      (where {:id block-id})))
-     first :block_type))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn block-type-exists?
+     first :block_type))</pre></td></tr><tr><td class="docs"><p>Looks up the configuration to see if the given block type exists.
+This does not ensure that the block type has been properly installed!</p>
+</td><td class="codes"><pre class="brush: clojure">(defn block-type-exists? 
   [type-name]
-  (= 1 (count (filter #(= % type-name) (-&gt;&gt; (u/get ::block-types) (map :table))))))</pre></td></tr><tr><td class="docs"><p><hr />
-Meta workers
-<hr /></p>
-</td><td class="codes"><pre class="brush: clojure">(defn gen-next-remind
-  [last-remind rule])</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn apply-meta ;; TODO: Change to block-id instead of block-type, give block-id as first arg to function
+  (= 1 (count (filter #(= % type-name) (-&gt;&gt; (u/get ::block-types) (map :table))))))</pre></td></tr><tr><td class="docs"><p>Using data from a block and the awesome <a href="https://github.com/seancorfield/clj-time">clj-time</a> wrapper around joda-time,
+this generates the next remind time.</p>
+
+<h2>Meta workers</h2>
+</td><td class="codes"><pre class="brush: clojure">(defn gen-next-remind 
+  [last-remind rule])</pre></td></tr><tr><td class="docs"><p>Applies the metadata of a block and of a certain action type, as configured in the config-file, to an arg-list.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn apply-meta 
+  ;; TODO: Change to block-id instead of block-type, give block-id as first arg to function
   [action block-type &amp; args]
   (let [meta (filter #(= (:table %) block-type) (u/get ::block-types))
         fun (read-string (action meta))]
-    (apply fun args)))</pre></td></tr><tr><td class="docs"><p><hr />
-Action functions
-<hr /></p>
-</td><td class="codes"><pre class="brush: clojure">(defn add-log-entry
-  [block-id {:keys [log_type title text] :as log-entry}]
+    (apply fun args)))</pre></td></tr><tr><td class="docs"><h2>Logs</h2>
+
+<p>Log entries are a way to store additional, incremental data to a block.
+While the title shouldn't get too long, the text can be as long as you want without influencing the database performance. You can even store clojure data structures in it. <br />
+Both the title- and the text-column are full-text indexed.</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>This adds a log entry to the block pointed by the block-id.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn add-log-entry 
+  [block-id {:keys [log_type log_title log_text] :as log-entry}]
   (let [block-type (block-type block-id)]
     (-&gt; (insert log
                (values (merge {:id block-id}
-                              (apply-meta :on-log-change block-type log-entry)))) first val)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn add-attachment
+                              (apply-meta :on-log-change block-type log-entry)))) first val)))</pre></td></tr><tr><td class="docs"><h2>Attachments</h2>
+
+<p>If you ever need to upload large, binary data into the database, attachments are the way to go. <br />
+They are searchable by their mime type and their fulltext-indexed filename, and the content can get as large as your harddrive.</p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Loads a new attachment into the database and assigns it to the given block-id.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn assoc-attachment 
   [block-id {:keys [mime filename data] :as v}]
   (when (entry-exists? block :id block-id)
     (-&gt; (insert attachment
                (values (apply-meta :on-attachment-add
                                     (block-type block-id)
-                                    v))) first val)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn drop-attachment
+                                    v))) first val)))</pre></td></tr><tr><td class="docs"><p>Deletes an attachment.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn dissoc-attachment 
   [attachment-id]
   (delete attachment
-          (where (= :id attachment-id))))</pre></td></tr><tr><td class="docs"><p><hr />
-Tags
-<hr /></p>
-</td><td class="codes"></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn create-tag-group
+          (where (= :id attachment-id))))</pre></td></tr><tr><td class="docs"><h2>Tags and Tag Groups</h2>
+
+<h3>Tags</h3>
+
+<p>The tags in Lopia are more than what you might first think. They aren't just there to tell you that something is tagged. You have the choice between four types of tags: :mark, :single-val, :single-val-restricted, :multi-val and :multi-val-restricted. <br />
+Let's see what the differences are: <br />
+- <strong>:mark</strong> marks a block just by its existence, and there's nothing else you can do to it. <br />
+- <strong>:single-val</strong> is a tag taking one value, without restriction to what it is, and it's full-text indexed. <br />
+- <strong>:single-val-restricted</strong> is, like :single-val, taking one value, but additionally it's restricting the selection of possible values. <br />
+- <strong>:multi-val</strong> and <strong>:multi-val-restricted</strong> are the multi-value siblings of the two one-value-taking tags.  </p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Creates a new tag and assigns it to a tag group.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn create-tag 
+  [tag-group {:keys [title description tag_type allowed_values meta] :as v}]
+  (when (and (entry-exists? tag_group :id tag-group)
+           (not (entry-exists? tag :title title)))
+    (-&gt; (insert tag
+               (values (merge {:tag_group_id tag-group}
+                              v))) first val)))</pre></td></tr><tr><td class="docs"><p>Changes the values of the tag with the given id.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn update-tag 
+  [id {:keys [tag_group_id title description tag_type allowed_values meta] :as values}]
+  (when (entry-exists? tag_group :id tag_group_id)
+    (update tag
+            (where (= :tag.id id))
+            (set-fields values))))</pre></td></tr><tr><td class="docs"><p>Deletes a tag and all values stored which are related to the tag.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn delete-tag 
+  [id]
+  (transaction
+   (delete block_tag
+           (where (= :block_tag.tag_id id)))
+   (delete tag
+           (where (= :tag.id id)))))</pre></td></tr><tr><td class="docs"><h3>Tag Groups</h3>
+
+<p>Tag Groups help you sort your tags into probably meaningful categories. Actually they force you to do so - every tag needs to be assigned to a tag group. <br />
+Currently, the benefit you get out of it is that you can select tags by group, i.e. to select all tags of a certain group. This can be useful to give the user a selection, if you don't want to use tag values or need them for different things.  </p>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Creates a new tag group.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn create-tag-group 
   [{:keys [title description] :as tag-group}]
   (-&gt; (insert tag_group
-             (values tag-group)) first val))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn update-tag-group
+              (values tag-group)) first val))</pre></td></tr><tr><td class="docs"><p>Changes the values of the tag group denoted by the id.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn update-tag-group 
   [id {:keys [title description] :as tag-group}]
   (update tag_group
           (where {:id id})
-          (set-fields tag-group)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn delete-tag-group
+          (set-fields tag-group)))</pre></td></tr><tr><td class="docs"><p>Deletes a tag group. <br />
+You also need to provide the id of an existing tag group to move the tags to.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn delete-tag-group 
   [id new-id]
   (transaction
    (update tag
            (where (= :tag.id id))
            (set-fields {:id new-id}))
    (delete tag_group
-           (where (= :tag_group.id id)))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn create-tag
-  [tag-group {:keys [title description tag_type allowed_values meta] :as v}]
-  (when (and (entry-exists? tag_group :id tag-group)
-           (not (entry-exists? tag :title title)))
-    (-&gt; (insert tag
-               (values (merge {:tag_group_id tag-group}
-                              v))) first val)))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn update-tag
-  [id {:keys [tag_group_id title description tag_type allowed_values meta] :as values}]
-  (when (entry-exists? tag_group :id tag_group_id)
-    (update tag
-            (where (= :tag.id id))
-            (set-fields values))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn delete-tag
-  [id]
-  (transaction
-   (delete block_tag
-           (where (= :block_tag.tag_id id)))
-   (delete tag
-           (where (= :tag.id id)))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn assoc-tagval
+           (where (= :tag_group.id id)))))</pre></td></tr><tr><td class="docs"><h3>Tag Values</h3>
+</td><td class="codes"></td></tr><tr><td class="docs"><p>Associates a tag to a block. If the tag takes no value, put in nil, or the addition will fail. <br />
+<strong><em>This triggers the :on-tag-add meta-function of the block.</em></strong></p>
+</td><td class="codes"><pre class="brush: clojure">(defn assoc-tagval 
   [tag-id block-id tag-value]
   (when (and (entry-exists? block :id block-id)
            (entry-exists? tag :id tag-id))
@@ -3227,8 +3287,9 @@ Tags
                                 (block-type block-id)
                                 {:block_id block-id
                                  :tag_id tag-id
-                                 :tag_value tag-value})))))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn update-tagval
+                                 :tag_value tag-value})))))</pre></td></tr><tr><td class="docs"><p>Changes the value of the given connection. <br />
+<strong><em>This triggers the :on-tag-change meta-function of the block.</em></strong></p>
+</td><td class="codes"><pre class="brush: clojure">(defn update-tagval 
   [tag-id block-id tag-value]
   (update block_tag
           (where {:block_id block-id
@@ -3237,8 +3298,9 @@ Tags
                                               (block-type block-id)
                                               {:block_id block-id
                                                :tag_id tag-id
-                                               :tag_value tag-value})})))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn dissoc-tagval
+                                               :tag_value tag-value})})))</pre></td></tr><tr><td class="docs"><p>Dissociates the tag from a block. <br />
+<strong><em>This triggers the :on-tag-remove meta-function of the block.</em></strong></p>
+</td><td class="codes"><pre class="brush: clojure">(defn dissoc-tagval 
   [tag-id block-id]
   (apply-meta :on-tag-remove
               (block-type block-id)
@@ -3246,22 +3308,89 @@ Tags
                :block_id block-id})
   (delete block_tag
           (where {:tag_id tag-id
-                  :block_id block-id})))</pre></td></tr><tr><td class="docs"><p><hr />
-Blocks
-<hr /></p>
-</td><td class="codes"><pre class="brush: clojure">(defn create-block
+                  :block_id block-id})))</pre></td></tr><tr><td class="docs"><h2>Blocks</h2>
+
+<p>Blocks are the central building block of Lopia. <br />
+They store the information used by all forms, no matter what forms they are. I'd like to show you the block's features:</p>
+
+<h3>Associating users</h3>
+
+<p>The simplest yet probably most important thing is to associate users to a block. Lopia uses the sAMAccountName attribute of the LDAP database to store a username. You have three types of associations you can make: <br />
+- <strong>opener</strong> The opener is your client, the one who issued a ticket or sent you an order. An opener can have and set reminders. <br />
+- <strong>supporter</strong> The supporter is the one managing the block and solving the problem associated to it. The supporter, too, can have and set reminders. <br />
+- <strong>observers</strong> can be set - This is a Clojure vector or list taking multiple user names. Those can subscribe and unsubscribe themselves, and you can use the list in your scripts.  </p>
+
+<h3>Defining Block Types</h3>
+
+<p>You'll probably want to define your own block types. Fortunately that's quite simple and can be done both "by hand" in the database config file or programmatically using the settings tool. <br />
+You need to add the namespace of your form to the :database/namespaces setting list, and the block definition to the :database/block-types list. <br />
+The block-types entry needs the two entries: :table with the table name (which is, at the dame time, the block-type name) and :trigger with the trigger functions. <br />
+See below at the trigger-manipulating functions for more info to the triggers.  </p>
+
+<h3>Timestamps</h3>
+
+<p>You get three timestamp fields for free: opened, closed and due, which are self-describing. opened and closed are set automatically when the block is created or closed respectively.  </p>
+</td><td class="codes"></td></tr><tr><td class="docs"><h3>Creating and manipulating blocks</h3>
+
+<p>Creates a new block with a type associated. This takes three arguments: The block type (= the table name of the type), the block-data as a map of key-value pairs as described in the entity and the type-data, which has to be a key-value map, too.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn create-block 
   [block-type block-data type-data])</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn update-block
   [id block-data])</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn close-block
   [id])</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn delete-block
-  [id])</pre></td></tr><tr><td class="docs"><p><hr />
-Startup
-<hr /></p>
+  [id])</pre></td></tr><tr><td class="docs"><h3>Reminders</h3>
+
+<p>You can set reminders to your block. To be exact, you can set two of them, one for the supporter and one for the opener of the block. <br />
+Because of that, <em>target</em> needs to be either :opener or :supporter. <br />
+first-remind needs to be a <a href="http://seancorfield.github.com/clj-time/doc/clj-time.coerce.html#var-to-timestamp">timestamp</a>,
+and interval an <a href="http://seancorfield.github.com/clj-time/doc/clj-time.core.html">interval</a>. For the time-related stuff, the awesome <a href="https://github.com/seancorfield/clj-time">clj-time</a> wrapper for joda-time is used, so you'll want to use it to construct intervals and timestamps.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn set-reminder 
+  [target first-remind interval])</pre></td></tr><tr><td class="docs"><h3>Followups</h3>
+
+<p>Sometimes, especially in a ticket system, you need to close a ticket because it's a duplicate, or you want to declare a block as a successor of another one. That's what the followup is for. You can set an another block as a followup for the current, and can easier find related blocks.</p>
+</td><td class="codes"><pre class="brush: clojure">(defn set-block-followup 
+  [id followup-id])</pre></td></tr><tr><td class="docs"><h3>Trigger</h3>
+
+<p>You can define special trigger for your blocks. As a rule, the trigger functions shall take the same arguments as the functions in which they are executed. <br />
+Available are following trigger hooks: <br />
+- <strong>:on-create</strong> is executed at block creation time. (create-block) <br />
+- <strong>:on-update</strong> is called whenever a block gets changed. (update-block) <br />
+- <strong>:on-log-change</strong> gets applied at a log addition. (add-log-entry) <br />
+- <strong>:on-supporter-change</strong> is applied when the supporter changes. (update-block) <br />
+- <strong>:on-tag-add</strong> is called whenever a tag is added. (assoc-tagval) <br />
+- <strong>:on-tag-change</strong> whenever a tag is changed. (update-tagval) <br />
+- <strong>:on-tag-remove</strong> is called upon removal of a tag from a block. (dissoc-tagval) <br />
+- <strong>:on-attachment-add</strong> is executed when an attachment gets attached. (assoc-attachment) <br />
+- <strong>:on-close</strong> finally gets executed when the block is closed. (close-block)  </p>
+</td><td class="codes"></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn define-block-type
+  [namespaces {:keys [table trigger]}])</pre></td></tr><tr><td class="docs"><h2>Startup</h2>
 </td><td class="codes"></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn boot []
-  (u/load-file! &quot;database.clj&quot;))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lopia.formparser" name="lopia.formparser"><h1 class="project-name">lopia.formparser</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+  (u/load-file! &quot;database.clj&quot;))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn parse-period
+  [x]
+  (let [sub? (= \T (second x))
+        ptype (last x)
+        str-num (-&gt;&gt; x
+                   (drop (if sub? 2 1))
+                   butlast
+                   (reduce str))
+        num (if (.contains str-num &quot;.&quot;)
+              (Double/parseDouble str-num)
+              (Integer/parseInt str-num))]
+    (case [sub? ptype]
+      [false \Y] (joda/years num)
+      [false \M] (joda/months num)
+      [false \W] (joda/weeks num)
+      [false \D] (joda/days num)
+      [true \H] (joda/hours num)
+      [true \M] (joda/minutes num)
+      [true \S] (if (= (class num) java.lang.Double)
+                  (joda/millis num)
+                  (joda/secs num)))))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lopia.formparser" name="lopia.formparser"><h1 class="project-name">lopia.formparser</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns lopia.formparser)</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn field-matches? [field value]
   (fn [resmap]
@@ -3290,7 +3419,7 @@ Startup
 </td><td class="codes"><pre class="brush: clojure">(defroutes ticket
   (GET &quot;/crate&quot; [])
   (GET &quot;/:id&quot; [id :as r]))</pre></td></tr><tr><td class="spacer docs">&nbsp;</td><td class="codes" /></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#lopia.mail" name="lopia.mail"><h1 class="project-name">lopia.mail</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(ns lopia.mail
+</td><td class="codes"><pre class="brush: clojure">(ns lopia.mail 
   (:require [lopia.util :as u]))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn send-mail
   [{:keys [to cc bcc subject text]}]

@@ -1,4 +1,4 @@
-(ns lopia.mail
+(ns lopia.mail ""
   (:require [lopia.util :as u]))
 
 (defn send-mail

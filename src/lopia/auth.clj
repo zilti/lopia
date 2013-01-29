@@ -1,4 +1,4 @@
-(ns lopia.auth "The authentication functions of Lopia use the *\"Friend\"* Framework from cemerick (http://www.github.com/cemerick/friend) to ensure only LDAP-authorized users can access and, by group, modify the database data via the REST-API. "
+(ns lopia.auth "The authentication functions of Lopia use the *\"Friend\"* Framework from cemerick (http://www.github.com/cemerick/friend) to ensure only LDAP-authorized users can access and, by group, modify the database data via the REST-API."
   (:require [clojure.string :as string]
             [lopia.util :as u]
             [clj-ldap.client :as ldap]
