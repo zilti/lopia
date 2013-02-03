@@ -1,12 +1,6 @@
-(ns lopia.core
-  (:require [korma.incubator.core :as k]
-            [korma.db :as db]
-            [clojure.string :as string]))
+(ns lopia.core)
 
-(db/defdb h2db {:classname "org.h2.Driver"
-                :subprotocol "h2"
-                :subname "mem:"
-                :delimiters ""
-                :naming {:keys string/lower-case
-                         :fields string/lower-case}})
-
+(defn foo
+  "I don't do a whole lot."
+  [x]
+  (println x "Hello, World!"))
