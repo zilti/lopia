@@ -4,7 +4,9 @@ The database is organized in a modular, easy-to-expand way. The central building
 With this architecture, it is dead-simple to add new types of blocks."
   (:use korma.incubator.core
         korma.db)
-  (:require [lopia.util :as u]))
+  (:require [lopia.util :as u]
+            [clj-time.core :as joda]
+            [clj-time.coerce :as jodac]))
 
 (declare block log tag tag_group block_tag)
 
@@ -86,6 +88,10 @@ Fields:
 (defn entry-exists? "Checks if a row in an entity, where key = value, exists."
   [entity key value]
   (not (nil? (select entity (where {key value})))))
+
+(defn table-exists? "Checks if a table exists."
+  [tablename]
+  (not (empty? (exec-raw ["SHOW COLUMNS FROM ?" [tablename]] :results)))) 
 
 (defn block-type "Returns the type of a block.
 The type name of a block is always identical of the form table it references."
@@ -256,23 +262,79 @@ You also need to provide the id of an existing tag group to move the tags to."
 (defn create-block "### Creating and manipulating blocks  
 Creates a new block with a type associated. This takes three arguments: The block type (= the table name of the type), the block-data as a map of key-value pairs as described in the entity and the type-data, which has to be a key-value map, too."
   [block-type block-data type-data]
-  )
+  (when (table-exists? block-type)
+    (if-let [block-id (-> (insert block (values block-data))
+                        first val)]
+      (-> (insert* block-type)
+        (values type-data)
+        (insert)))))
 
 (defn update-block
-  [id block-data])
+  [id block-data]
+  (update block
+          (where {:id id})
+          (set-fields block-data)))
 
 (defn close-block
-  [id])
+  [id]
+  (update block
+          (where {:id id})
+          (set-fields {:closed (jodac/to-timestamp
+                                 (joda/now))})))
 
 (defn delete-block
-  [id])
+  [id]
+  (delete block
+          (where {:id id})))
 
 (defn set-reminder "### Reminders
 You can set reminders to your block. To be exact, you can set two of them, one for the supporter and one for the opener of the block.  
 Because of that, *target* needs to be either :opener or :supporter.  
 first-remind needs to be a [timestamp](http://seancorfield.github.com/clj-time/doc/clj-time.coerce.html#var-to-timestamp),
-and interval an [interval](http://seancorfield.github.com/clj-time/doc/clj-time.core.html). For the time-related stuff, the awesome [clj-time](https://github.com/seancorfield/clj-time) wrapper for joda-time is used, so you'll want to use it to construct intervals and timestamps."
-  [target first-remind interval])
+and interval an [interval](http://seancorfield.github.com/clj-time/doc/clj-time.core.html). For the time-related stuff, the awesome [clj-time](https://github.com/seancorfield/clj-time) wrapper for joda-time is used, so you'll want to use it to construct intervals and timestamps.  
+Make sure that you hand the interval as an unevaluated list, like this:  
+```
+'((days 2)(hours 5))
+```"
+  [{:keys [id target first-remind interval]}]
+  (let [field-first (case target
+                      :opener :opener_next_remind
+                      :supporter :supporter_next_remind)
+        field-interval (case target
+                         :opener :opener_gen_remind
+                         :supporter :supporter_gen_remind)]
+    (update block
+          (where {:id id})
+          (set-fields {field-first first-remind
+                       field-interval (str interval)}))))
+
+(defn refresh-reminder "Refreshes a reminder and increases the next remind time by the interval."
+  [id target]
+  (let [{:keys [opener_next_remind opener_gen_remind
+                supporter_next_remind supporter_gen_remind]} 
+        (-> (select block (where {:id id})) first)
+        
+        interval (case target
+                   :opener opener_gen_remind
+                   :supporter supporter_gen_remind)
+        next-remind (case target
+                      :opener opener_next_remind
+                      :supporter supporter_next_remind)
+        
+        ms (jodac/from-long (.getTime next-remind))
+        years (joda/years)
+        months (joda/months)
+        weeks (joda/weeks)
+        days (joda/days)
+        hours (joda/hours)
+        minutes (joda/minutes)
+        secs (joda/secs)
+        millis (joda/millis)
+        new-remind (jodac/to-timestamp (eval `(joda/plus ~ms ~@interval)))
+        field-next (if (= target :opener) :opener_next_remind :supporter_next_remind)]
+    (-> (update block
+                (where {:id id})
+                (set-fields {field-next new-remind})))))
 
 (defn set-block-followup "### Followups  
 Sometimes, especially in a ticket system, you need to close a ticket because it's a duplicate, or you want to declare a block as a successor of another one. That's what the followup is for. You can set an another block as a followup for the current, and can easier find related blocks."
@@ -291,8 +353,8 @@ Sometimes, especially in a ticket system, you need to close a ticket because it'
 ;; - **:on-attachment-add** is executed when an attachment gets attached. (assoc-attachment)  
 ;; - **:on-close** finally gets executed when the block is closed. (close-block)  
 
-(defn define-block-type
-  [namespaces {:keys [table trigger]}])
+(defn define-block-type "Defines a new block type." 
+  [{:keys [table trigger namespaces]}])
 ;; ## Startup
 
 (defn boot []
